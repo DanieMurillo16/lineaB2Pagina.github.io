@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8" />
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 600px;
+            box-shadow: 5px 5px 5px #888;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        //OMS 
+        var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>'
+                + 'contributors',
+            maxZoom: 19
+        });
+
+        //Mapa arranca en florencia
+        var map = L.map('map', {
+            center: [1.62020, -75.60430],
+            zoom: 14,
+            layers: osm,
+            scrollWheelZoom: true,
+        });
+        L.control.scale().addTo(map);
+
+
+        //Universidad
+        var marker = L.marker([1.6212, -75.6043], {
+            draggable: true,
+        }).addTo(map)
+            .bindPopup('Universidad de la amazonia')
+            .openPopup();
+
+        //Alcaldia
+        var marker = L.marker([1.615094, -75.6138577], {
+            draggable: true,
+        }).addTo(map)
+            .bindPopup('Alcaldia de Florencia')
+            .openPopup();
+
+        //Circulo a la alcaldia
+        var circle = L.circle([1.615094, -75.6138577], 500, {
+            color: 'red',
+            fillColor: '#f03',
+            fillOpacity: 0.5
+        }).addTo(map);
+
+        //Plaza santander
+        var polygon = L.polygon([
+            [1.61538239, -75.6130408],
+            [1.6151748509, -75.6136885],
+            [1.6145274386, -75.6134901],
+            [1.6147163962, -75.6128456]
+        ]).addTo(map)
+            .bindPopup('Plaza Santander');
+
+        //Mi casa a la Universidad (Torres de salen)
+        var puntosUbicacion = [
+        [1.622240909112235, -75.60133895989172],
+        [1.6218554034097827, -75.6016983251013],
+        [1.6222071662734066, -75.6028562540298],
+        [1.6219166126434879, -75.60431792869741],
+        ];
+        var polyline = L.polyline(
+            puntosUbicacion, { color: 'red' }
+        )
+            .addTo(map)
+            .bindPopup("Casa Daniel a Universidad");
+
+
+
+
+    </script>
+</body>
+
+</html>
